@@ -1,20 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="io.gavinhungry.xposed.oneplus.reversealertslider"
-    android:versionCode="1"
-    android:versionName="1.0.0">
+    package="net.edrose.xposed.oneplus.ReverseVibrateSwitch"
+    android:versionCode="103"
+    android:versionName="1.0.3">
 
   <uses-sdk android:minSdkVersion="22" />
 
-  <application android:label="Reverse Alert Slider">
+  <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+
+  <application android:label="Reverse Alert Vibrate Slider">
     <meta-data
       android:name="xposedmodule"
       android:value="true" />
     <meta-data
       android:name="xposeddescription"
-      android:value="Reverse the direction of the OnePlus 2 Alert Slider (OxygenOS)" />
+      android:value="Reverse the direction of the OnePlus 2 Alert Slider (OxygenOS) and make middle setting vibrate" />
     <meta-data
       android:name="xposedminversion"
       android:value="54" />
+
   </application>
 </manifest>

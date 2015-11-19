@@ -1,4 +1,4 @@
-package io.gavinhungry.xposed.oneplus.reversealertslider;
+package net.edrose.xposed.oneplus.ReverseVibrateSwitch;
 
 import de.robv.android.xposed.XposedBridge;
 import de.robv.android.xposed.XposedHelpers;
@@ -6,6 +6,10 @@ import de.robv.android.xposed.IXposedHookLoadPackage;
 import de.robv.android.xposed.callbacks.XC_LoadPackage.LoadPackageParam;
 import de.robv.android.xposed.XC_MethodHook;
 import de.robv.android.xposed.XC_MethodReplacement;
+
+import android.app.AndroidAppHelper;
+import android.content.Context;
+import android.media.AudioManager;
 
 public class ReverseAlertSlider implements IXposedHookLoadPackage {
   public void handleLoadPackage(final LoadPackageParam lpparam) throws Throwable {
@@ -21,8 +25,15 @@ public class ReverseAlertSlider implements IXposedHookLoadPackage {
             // 2 - Priority interruptions only
             // 3 - All notifications
             int state = (Integer) param.args[0];
-
+            Context moduleContext = AndroidAppHelper.currentApplication().createPackageContext("net.edrose.xposed.oneplus.ReverseVibrateSwitch", Context.CONTEXT_IGNORE_SECURITY);
+            AudioManager manager = (AudioManager) moduleContext.getSystemService(Context.AUDIO_SERVICE);
             if (state == 1) {
+              param.args[0] = 3;
+              //Remove vibration
+              manager.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
+            } else if (state == 2){
+              //Set volume to vibrate
+              manager.setRingerMode(AudioManager.RINGER_MODE_VIBRATE);
               param.args[0] = 3;
             } else if (state == 3) {
               param.args[0] = 1;
